@@ -31,18 +31,19 @@ app.use(cookieParser());
 // Security HTTP headers
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: [
-          "'self'",
-          'fonts.googleapis.com',
-          'unpkg.com',
-          'openstreetmap.org',
-        ],
-        scriptSrc: ["'self'", 'fonts.googleapis.com', 'unpkg.com'],
-        fontSrc: ["'self'", 'fonts.googleapis.com'],
-      },
-    },
+    contentSecurityPolicy: false,
+    // {
+    //   directives: {
+    //     defaultSrc: [
+    //       "'self'",
+    //       'fonts.googleapis.com',
+    //       'unpkg.com',
+    //       'openstreetmap.org',
+    //     ],
+    //     scriptSrc: ["'self'", 'fonts.googleapis.com', 'unpkg.com'],
+    //     fontSrc: ["'self'", 'fonts.googleapis.com'],
+    //   },
+    // },
   })
 );
 
