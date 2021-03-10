@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm run build", 
+    "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "server": "node server.js",
-    "demon": "nodemon server", 
+    "demon": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run demon\" \"npm run client\""
   },
@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -37,7 +38,6 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
-    "colors": "^1.4.0",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.7"
   }
