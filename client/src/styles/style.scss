@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+$dark-green: #081c15;
+$green: #52b788;
+$light-green: #effaf1;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100%;
+  background-color: $light-green;
+  color: $dark-green;
+}
+
+i {
+  vertical-align: -3px;
+}
+
+.righteous {
+  font-family: 'Righteous', cursive;
+}
+
+.dark-bg {
+  background-color: $dark-green !important;
+}
+
+.dark-text {
+  color: $dark-green !important;
+}
+
+.primary-bg {
+  background-color: $green !important;
+}
+
+.primary-text {
+  color: $green !important;
+}
+
+.text-green {
+  color: $green;
+}
+
+.light-bg {
+  background-color: $light-green !important;
+}
+
+.light-text {
+  color: $light-green !important;
+}
+
+.page-container {
+  min-height: calc(100vh - 20px - 56px);
+}
+
+@media only screen and (min-width: 602px) {
+  .page-container {
+    min-height: calc(100vh - 20px - 64px);
+  }
+}
+
+.hover-collection {
+  &:hover {
+    background-color: $green !important;
+    color: $light-green !important;
+
+    .secondary-content {
+      color: $light-green !important;
+    }
+  }
+}
+
+/////////////DA CANCELLARE///////////////////
+
+.mg-20 {
+  margin: 0 20px;
+}
+
+/// PLACES SCREEN - DA SISTEMARE ////
+
+.places-wrapper {
+  display: grid;
+  margin-top: 10vh;
+  grid-template-columns: 1fr 1fr;
+  gap: 10vh;
+
+  .places-map {
+    width: 35vw;
+    height: 35vw !important;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 668px) {
+  .places-wrapper {
+    grid-template-columns: 1fr;
+
+    .places-map {
+      width: 70vw;
+      height: 70vw !important;
+    }
+  }
+}
+
+@media only screen and (min-width: 669px) and (max-width: 993px) {
+  .places-wrapper {
+    grid-template-columns: 1fr;
+
+    .places-map {
+      width: 50vw;
+      height: 50vw !important;
+    }
+  }
+}
+
+.places-info-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 993px) {
+  .places-info-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.place-number-description {
+  font-size: 0.3em;
+}
+
+.places-instructions {
+  line-height: 1.5;
+  font-size: 1.1em;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.place-number {
+  margin-bottom: 0px;
+}
+
+// FORM
+
+.form {
+  max-width: 400px;
+  padding-top: 10vh;
+  margin: 0 auto;
+
+  form {
+    border: 1px solid $green;
+    padding: 40px 40px;
+
+    div {
+      margin-bottom: 1.5em;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.auth-form {
+  max-width: 350px;
+}
+
+/// PLACE SCREEN
+.place-img {
+  width: 100%;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.place-map {
+  width: 100%;
+  height: 40vh !important;
+  z-index: 2;
+}
+
+// HOME
+
+.home-buttons {
+  width: 80%;
+  margin: 2em auto;
+  display: flex !important;
+  justify-content: space-around !important;
+}
+
+.home {
+  min-height: calc(100vh - 20px);
+}
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 85% !important;
+  }
+
+  .home {
+    border: 1px solid $light-green;
+
+    .row {
+      margin-top: 20vh;
+
+      .home-buttons {
+        margin-top: 6em;
+      }
+
+      .home-img {
+        max-height: 70vh;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 993px) {
+  .home-img {
+    max-height: 60vh;
+  }
+}

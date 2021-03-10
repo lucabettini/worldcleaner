@@ -1,0 +1,62 @@
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearError } from '../../redux/placesSlice';
+
+const ErrorScreen = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearError);
+    };
+  }, []);
+
+  return (
+    <div style={errorContainer}>
+      <div className='container'>
+        <div className='row'>
+          <div className='col s12'>
+            <h3 className='primary-text' style={errorTitle}>
+              Oops! Something went wrong
+            </h3>
+            <p className='dark-text' style={errorText}>
+              Either we couldn't find what you are looking for or some
+              unexpected black magic happened on the server.
+            </p>
+            <p className='dark-text' style={errorText}>
+              While we send our oompa-loompas squad to check, you can{' '}
+              <a className='primary-text' href='/'>
+                go back and try something else.
+              </a>
+            </p>
+            <p style={errorText}>
+              If the problem persists,{' '}
+              <a
+                href='https://lucabettini.github.io/contacts.html'
+                className='primary-text'
+              >
+                please let me know.
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const errorContainer = {
+  minHeight: 'calc(100vh - 20px)',
+};
+
+const errorTitle = {
+  paddingTop: '1em',
+  paddingBottom: '2em',
+};
+
+const errorText = {
+  fontSize: '1.5em',
+  paddingBottom: '0.5em',
+};
+
+export default ErrorScreen;
