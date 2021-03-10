@@ -11,9 +11,6 @@ node_modules/
 /build
 /client/build
 
-# storage 
-/public
-
 # misc
 .DS_Store
 .env
