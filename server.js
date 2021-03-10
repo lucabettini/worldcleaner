@@ -33,7 +33,12 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"],
+        defaultSrc: [
+          "'self'",
+          'fonts.googleapis.com',
+          'unpkg.com',
+          'openstreetmap.org',
+        ],
         scriptSrc: ["'self'", 'fonts.googleapis.com', 'unpkg.com'],
         fontSrc: ["'self'", 'fonts.googleapis.com'],
       },
