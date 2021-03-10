@@ -37,7 +37,7 @@ app.use(xss());
 
 // Rate limiter
 const limiter = rateLimit({
-  max: 100000,
+  max: process.env.NODE_ENV === 'production' ? 200 : 10000,
   windowMs: 60 * 60 * 1000, // 1h
   message: 'Too many requests from this IP',
 });
@@ -56,7 +56,11 @@ app.use(notFound);
 // ERROR HANDLER
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(
   PORT,
