@@ -51,14 +51,14 @@ app.use('/api/clean', cleanRoutes);
 
 app.use('/images', express.static('public/assets/images'));
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 app.use(notFound);
 
 // ERROR HANDLER
 app.use(errorHandler);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
 
 const PORT = process.env.PORT || 5000;
 
