@@ -27,7 +27,7 @@ const Leaderboard = () => {
       return (
         <a
           className='hover-collection collection-item light-bg dark-text'
-          href={`/users/${user._id}`}
+          href={`/#/users/${user._id}`}
           key={user._id}
         >
           {`${index + 1}. ${user.name.toUpperCase()}`}

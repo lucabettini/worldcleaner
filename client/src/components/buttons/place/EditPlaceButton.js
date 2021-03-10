@@ -3,7 +3,7 @@ import React from 'react';
 const EditPlaceButton = ({ id }) => {
   return (
     <a
-      href={`/places/edit/${id}`}
+      href={`/#/places/edit/${id}`}
       style={{ display: 'block', width: '100%' }}
       className='waves-effect waves-light btn righteous dark-bg light-text'
     >

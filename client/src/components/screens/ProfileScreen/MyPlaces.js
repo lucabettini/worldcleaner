@@ -35,7 +35,7 @@ const MyPlaces = () => {
       return (
         <a
           className='hover-collection collection-item light-bg dark-text'
-          href={`/places/${place._id}`}
+          href={`/#/places/${place._id}`}
           key={place._id}
         >
           {place.name.toUpperCase()}
@@ -54,7 +54,7 @@ const MyPlaces = () => {
       return (
         <a
           className='hover-collection collection-item light-bg dark-text'
-          href={`/places/${place._id}`}
+          href={`/#/places/${place._id}`}
           key={place._id}
         >
           {place.name.toUpperCase()}
