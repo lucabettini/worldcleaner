@@ -29,23 +29,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Security HTTP headers
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: false,
-//     // {
-//     //   directives: {
-//     //     defaultSrc: [
-//     //       "'self'",
-//     //       'fonts.googleapis.com',
-//     //       'unpkg.com',
-//     //       'openstreetmap.org',
-//     //     ],
-//     //     scriptSrc: ["'self'", 'fonts.googleapis.com', 'unpkg.com'],
-//     //     fontSrc: ["'self'", 'fonts.googleapis.com'],
-//     //   },
-//     // },
-//   })
-// );
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // Data sanitization
 app.use(mongoSanitize());
