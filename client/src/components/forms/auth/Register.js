@@ -102,7 +102,7 @@ const Register = () => {
           SIGN UP
         </button>
         <p style={{ marginTop: '1.5em', color: 'rgba(0,0,0,0.54)' }}>
-          Already have an account? <a href='/login'>SIGN IN</a>
+          Already have an account? <a href='/#/login'>SIGN IN</a>
         </p>
       </form>
     </div>

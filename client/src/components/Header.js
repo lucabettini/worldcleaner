@@ -29,7 +29,7 @@ const Header = () => {
   const navButtons = name ? (
     <>
       <li>
-        <a href={`/users/${loggedIn}`} className='light-text'>
+        <a href={`/#/users/${loggedIn}`} className='light-text'>
           {name.toUpperCase()}
         </a>
       </li>
@@ -42,7 +42,7 @@ const Header = () => {
   ) : (
     <>
       <li>
-        <a href='/register' className='light-text'>
+        <a href='/#/register' className='light-text'>
           JOIN US
         </a>
       </li>
@@ -54,7 +54,7 @@ const Header = () => {
       <nav>
         <div className='nav-wrapper righteous primary-bg'>
           <div className='container'>
-            <a href='/' className='light-text' style={{ fontSize: '1.3em' }}>
+            <a href='/#/' className='light-text' style={{ fontSize: '1.3em' }}>
               WORLD CLEANER
             </a>
             <ul className='right light-text'>{navButtons}</ul>

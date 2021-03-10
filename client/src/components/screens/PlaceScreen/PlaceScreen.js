@@ -98,7 +98,7 @@ const PlaceScreen = () => {
             <p>
               <i className='material-icons'>delete</i>
               {place.username ? (
-                <a href={`/users/${place.user}`}>
+                <a href={`/#/users/${place.user}`}>
                   {place.username.toUpperCase()}
                 </a>
               ) : null}{' '}
@@ -112,7 +112,7 @@ const PlaceScreen = () => {
               <p style={{ paddingTop: '1em' }}>
                 <i className='material-icons'>eco</i>
                 {place.cleaned.username ? (
-                  <a href={`/users/${place.cleaned.user}`}>
+                  <a href={`/#/users/${place.cleaned.user}`}>
                     {place.cleaned.username.toUpperCase()}
                   </a>
                 ) : null}{' '}

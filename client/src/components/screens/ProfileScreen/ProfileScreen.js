@@ -45,7 +45,7 @@ const ProfileScreen = () => {
         <p style={{ paddingTop: '1em' }}>
           {' '}
           <i className='material-icons'>{icon}</i>{' '}
-          <a href={`/editProfile`}>Add a {name}</a>
+          <a href={`/#/editProfile`}>Add a {name}</a>
         </p>
       );
     } else {

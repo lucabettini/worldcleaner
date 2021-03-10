@@ -60,7 +60,7 @@ const Login = () => {
           />
           <label htmlFor='password'>Password</label>
           <span className='helper-text'>
-            <a href='/forgotPassword'>Forgot password?</a>
+            <a href='/#/forgotPassword'>Forgot password?</a>
           </span>
         </div>
         <button
@@ -70,7 +70,7 @@ const Login = () => {
           SIGN IN
         </button>
         <p style={{ marginTop: '1.5em', color: 'rgba(0,0,0,0.54)' }}>
-          Need an account? <a href='/register'>SIGN UP</a>
+          Need an account? <a href='/#/register'>SIGN UP</a>
         </p>
       </form>
     </div>

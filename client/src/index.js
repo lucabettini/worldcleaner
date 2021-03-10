@@ -7,6 +7,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 import './styles/reset.css';
 import 'react-slideshow-image/dist/styles.css';
+import 'materialize-css/dist/css/materialize.min.css';
 import './styles/style.scss';
 
 import App from './App';
