@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 $dark-green: #081c15;
 $green: #52b788;
@@ -14,6 +15,7 @@ body {
   min-height: 100%;
   background-color: $light-green;
   color: $dark-green;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 i {
@@ -38,10 +40,6 @@ i {
 
 .primary-text {
   color: $green !important;
-}
-
-.text-green {
-  color: $green;
 }
 
 .light-bg {
@@ -70,6 +68,26 @@ i {
     .secondary-content {
       color: $light-green !important;
     }
+  }
+}
+
+/// NAVBAR ////
+.nav-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+.nav-links {
+  line-height: 56px;
+  @media only screen and (min-width: 602px) {
+    line-height: 64px;
   }
 }
 
@@ -179,15 +197,19 @@ i {
 
 // HOME
 
-.home-buttons {
-  width: 80%;
-  margin: 2em auto;
-  display: flex !important;
-  justify-content: space-around !important;
-}
-
 .home {
   min-height: calc(100vh - 20px);
+
+  .home-title {
+    font-size: 58.8px;
+  }
+
+  .home-buttons {
+    width: 80%;
+    margin: 2em auto;
+    display: flex !important;
+    justify-content: space-around !important;
+  }
 }
 
 @media only screen and (min-width: 993px) {
@@ -216,4 +238,11 @@ i {
   .home-img {
     max-height: 60vh;
   }
+}
+
+/// ERROR SCREEN ///
+.error-title {
+  font-size: 3.5em;
+  padding-top: 2em;
+  padding-bottom: 1em;
 }

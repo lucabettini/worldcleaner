@@ -22,8 +22,8 @@ const HomeScreen = () => {
     <div className='home container'>
       <div className='row'>
         <div className='col m12 l6'>
-          <div className='home-title'>
-            <h1 className='center-align righteous primary-text'>
+          <div>
+            <h1 className='center-align righteous primary-text home-title'>
               WORLD CLEANER
             </h1>
           </div>

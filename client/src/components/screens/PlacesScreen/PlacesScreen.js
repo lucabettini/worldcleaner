@@ -77,7 +77,7 @@ const PlacesScreen = () => {
                   style={{ fontSize: '4em', marginBottom: '5px' }}
                 >
                   {numOfCleanedPlaces}
-                  <p className='place-number-description text-green righteous'>
+                  <p className='place-number-description primary-text righteous'>
                     CLEANED
                   </p>
                 </a>

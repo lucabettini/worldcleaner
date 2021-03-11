@@ -2,6 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearError } from '../../redux/placesSlice';
 
+const errorContainer = {
+  minHeight: 'calc(100vh - 20px)',
+};
+
+const errorText = {
+  fontSize: '1.5em',
+  paddingBottom: '0.5em',
+};
+
 const ErrorScreen = () => {
   const dispatch = useDispatch();
 
@@ -16,9 +25,9 @@ const ErrorScreen = () => {
       <div className='container'>
         <div className='row'>
           <div className='col s12'>
-            <h3 className='primary-text' style={errorTitle}>
+            <p className='primary-text error-title'>
               Oops! Something went wrong
-            </h3>
+            </p>
             <p className='dark-text' style={errorText}>
               Either we couldn't find what you are looking for or some
               unexpected black magic happened on the server.
@@ -43,20 +52,6 @@ const ErrorScreen = () => {
       </div>
     </div>
   );
-};
-
-const errorContainer = {
-  minHeight: 'calc(100vh - 20px)',
-};
-
-const errorTitle = {
-  paddingTop: '1em',
-  paddingBottom: '2em',
-};
-
-const errorText = {
-  fontSize: '1.5em',
-  paddingBottom: '0.5em',
 };
 
 export default ErrorScreen;
