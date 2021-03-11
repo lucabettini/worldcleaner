@@ -11,7 +11,7 @@ const FadeImages = ({ pollutedImg, cleanedImg }) => {
     <Fade {...properties}>
       <div className='fade'>
         <img
-          src={`/images/${pollutedImg}`}
+          src={pollutedImg}
           alt='First image'
           className='z-depth-2 place-img'
         />
@@ -19,7 +19,7 @@ const FadeImages = ({ pollutedImg, cleanedImg }) => {
       {cleanedImg ? (
         <div className='fade'>
           <img
-            src={`/images/${cleanedImg}`}
+            src={cleanedImg}
             alt='Second image'
             className='z-depth-2 place-img'
           />

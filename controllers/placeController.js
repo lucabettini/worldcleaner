@@ -37,7 +37,7 @@ const addPlace = [
   }),
   expressAsyncHandler(async (req, res) => {
     const { name, latitude, longitude } = req.body;
-    const { path } = req.file;
+    const path = req.file?.location;
 
     if (!path) {
       res.status(400);
@@ -47,7 +47,7 @@ const addPlace = [
     // Add place
     const place = new Place({
       name,
-      imgUrl: path.split('/').pop(),
+      imgUrl: path,
       coordinates: [parseFloat(latitude), parseFloat(longitude)],
       user: req.user.id,
       description: req.body.description ?? undefined,
@@ -113,7 +113,7 @@ const changePlace = [
     place.latitude = latitude ?? place.latitude;
     place.longitude = longitude ?? place.longitude;
     place.description = description ?? place.description;
-    place.imgUrl = req.file?.path.split('/').pop() ?? place.imgUrl;
+    place.imgUrl = req.file?.path ?? place.imgUrl;
 
     await place.save();
     res.status(200).json({ msg: 'Place updated' });

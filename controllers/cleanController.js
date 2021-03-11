@@ -20,7 +20,7 @@ const addCleaning = [
   }),
   expressAsyncHandler(async (req, res) => {
     const { description } = req.body;
-    const { path } = req.file;
+    const path = req.file?.location;
 
     if (!path) {
       res.status(400);
@@ -37,7 +37,7 @@ const addCleaning = [
         throw new Error('Place already cleaned');
       } else {
         place.cleaned.user = req.user.id;
-        place.cleaned.imgUrl = path.split('/').pop();
+        place.cleaned.imgUrl = path;
         place.cleaned.timestamp = Date.now();
         place.cleaned.isCleaned = true;
         place.cleaned.description = description ?? undefined;
@@ -69,7 +69,7 @@ const changeCleaning = [
   }),
   expressAsyncHandler(async (req, res) => {
     const { description } = req.body;
-    const path = req.file?.path;
+    const path = req.file?.location;
 
     const place = await Place.findById(req.params.id);
     // Make sure place exists and was cleaned
@@ -77,7 +77,7 @@ const changeCleaning = [
       // Make sure user is OP of cleaning
       if (place.cleaned.user.toString() === req.user.id || isAdmin) {
         if (path) {
-          place.cleaned.imgUrl = path.split('/').pop();
+          place.cleaned.imgUrl = path;
         }
         if (description) {
           place.cleaned.description = description;

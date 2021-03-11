@@ -135,7 +135,7 @@ const PlaceScreen = () => {
             ) : (
               <div className='place-img'>
                 <img
-                  src={`/images/${place.imgUrl}`}
+                  src={place.imgUrl}
                   alt='First image'
                   className='z-depth-2'
                 />

@@ -1,13 +1,28 @@
 import path from 'path';
 import multer from 'multer';
+import multerS3 from 'multer-s3';
+import aws from 'aws-sdk';
 import { v4 as uuid } from 'uuid';
 
+// Bucket config
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
 // Storage configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './uploads/');
+const storage = multerS3({
+  s3: s3,
+  bucket: 'worldcleaner-storage',
+  acl: 'public-read',
+  region: 'us-east-2',
+  contentType: function (req, file, cb) {
+    cb(null, file.mimetype);
   },
-  filename: (req, file, cb) => {
+  metadata: function (req, file, cb) {
+    cb(null, { fieldName: file.fieldname });
+  },
+  key: function (req, file, cb) {
     cb(null, Date.now() + '-' + uuid() + path.extname(file.originalname));
   },
 });
