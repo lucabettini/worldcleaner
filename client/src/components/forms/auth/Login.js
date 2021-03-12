@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 const Login = () => {
   const history = useHistory();
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
   const [field, setField] = useState({
@@ -35,8 +35,13 @@ const Login = () => {
           password: field.password,
         });
         // Save id on sessionStorage and redirect
-        const { id } = res.data;
-        await setLoggedIn(id);
+        // Controllare se user è admin oppure no
+        const { id, isAdmin } = res.data;
+        if (isAdmin) {
+          await setLoggedIn('admin');
+        } else {
+          await setLoggedIn(id);
+        }
         history.push('/places');
       } catch (error) {
         handleError(error.response.data.msg, error.response.status);

@@ -19,6 +19,7 @@ const Leaderboard = () => {
 
   const sortedUsers = () => {
     const usersArr = [...users];
+    // find Admin and remove it from the list
     const sortedByPoints = usersArr
       .sort((a, b) => (a.points > b.points ? -1 : 1))
       .slice(0, 10);

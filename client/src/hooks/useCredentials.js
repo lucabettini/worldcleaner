@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 
-const useStorage = () => {
+const useCredentials = () => {
   const history = useHistory();
   const [user, setState] = useState(sessionStorage.getItem('userId'));
 
@@ -28,4 +28,4 @@ const useStorage = () => {
   return [user, setUser];
 };
 
-export default useStorage;
+export default useCredentials;

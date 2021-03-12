@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 
 const AddCleaningButton = ({ id }) => {
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const history = useHistory();
 
   const onCleaning = () => {

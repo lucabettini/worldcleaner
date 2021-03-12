@@ -3,13 +3,13 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 const Register = () => {
   const history = useHistory();
   const { slug } = useParams();
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
   const [field, setField] = useState({

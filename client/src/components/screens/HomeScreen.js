@@ -3,12 +3,12 @@ import { useHistory } from 'react-router-dom';
 
 import icon from '../../styles/img/PLANET-01.svg';
 
-import useStorage from '../../hooks/useStorage';
+import useCredentials from '../../hooks/useCredentials';
 
 const HomeScreen = () => {
   const history = useHistory();
 
-  const [loggedIn] = useStorage();
+  const [loggedIn] = useCredentials();
 
   const onGetStarted = () => {
     if (loggedIn) {

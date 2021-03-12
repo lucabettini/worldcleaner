@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 const Register = () => {
   const history = useHistory();
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
   const [field, setField] = useState({

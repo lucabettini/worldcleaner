@@ -3,17 +3,19 @@ import { useParams } from 'react-router-dom';
 
 import axios from 'axios';
 
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import EditProfileButton from '../../buttons/profile/EditProfileButton';
 import MyPlaces from './MyPlaces';
 import useError from '../../../hooks/useError';
 
 const ProfileScreen = () => {
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
+
   const [isSameUser, setIsSameUser] = useState(false);
   const [userData, setUserData] = useState({});
   const [status, setStatus] = useState('loading');
+
   const id = useParams().id;
 
   useEffect(async () => {

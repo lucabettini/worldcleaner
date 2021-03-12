@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 const DeleteProfileButton = () => {
   const history = useHistory();
   const id = useParams().id;
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
   const [click, setClick] = useState(false);
 

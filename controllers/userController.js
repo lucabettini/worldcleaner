@@ -12,7 +12,7 @@ import auth, { sendToken } from '../middleware/authMiddleware.js';
 // @response    Array of all users' name and points
 const getUsers = expressAsyncHandler(async (req, res) => {
   // Get only username and points
-  const users = await User.find({}).select('name points');
+  const users = await User.find({}).select('name points isAdmin');
 
   res.json(users);
 });
@@ -20,7 +20,7 @@ const getUsers = expressAsyncHandler(async (req, res) => {
 // @desc        Register a new user
 // @route       POST /api/users
 // @access      Public
-// @response    User id and name
+// @response    User id and adminstatus
 const registerUser = [
   validate({
     // Validation
@@ -61,9 +61,7 @@ const registerUser = [
 // @access      Public
 // @response    Object with user's data
 const getUserById = expressAsyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select(
-    '-password -email -isAdmin'
-  );
+  const user = await User.findById(req.params.id).select('-password -email');
   if (user) {
     res.json(user);
   } else {

@@ -5,11 +5,11 @@ import axios from 'axios';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 import DeleteProfileButton from '../../buttons/profile/DeleteProfileButton';
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 const EditPlace = () => {
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
   const id = loggedIn;
   const history = useHistory();

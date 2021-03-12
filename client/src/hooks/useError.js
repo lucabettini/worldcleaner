@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { throwError } from '../redux/placesSlice';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
-import useStorage from './useStorage';
+import useCredentials from './useCredentials';
 
 const useError = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
 
   const handleError = (message, statusCode, error) => {
     if (!statusCode) {

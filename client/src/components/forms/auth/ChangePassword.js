@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 const ChangePassword = () => {
   const history = useHistory();
   const handleError = useError();
 
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
 
   const [field, setField] = useState({
     oldPassword: '',

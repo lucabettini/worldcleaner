@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import axios from 'axios';
 
-import useStorage from '../../../hooks/useStorage';
+import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
 import AddCleaningButton from '../../buttons/cleaning/AddCleaningButton';
@@ -13,13 +13,13 @@ import FadeImages from './FadeImages';
 import Map from '../../Map';
 
 const PlaceScreen = () => {
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
   const [place, setPlace] = useState({
     // If we don't include this, place.cleaned is undefined during the first
     // render, before useEffect makes the API call
-    cleaned: '',
+    // cleaned: '',
   });
   const [status, setStatus] = useState('loading');
   const id = useParams().id;
@@ -108,7 +108,7 @@ const PlaceScreen = () => {
               <p style={{ paddingTop: '1em' }}>{place.description}</p>
             ) : null}
 
-            {place.cleaned.isCleaned ? (
+            {place.cleaned?.isCleaned ? (
               <p style={{ paddingTop: '1em' }}>
                 <i className='material-icons'>eco</i>
                 {place.cleaned.username ? (

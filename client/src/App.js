@@ -9,6 +9,7 @@ import ErrorCatcher from './components/ErrorCatcher';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Dashboard from './components/screens/Dashboard';
 
 import HomeScreen from './components/screens/HomeScreen';
 import PlacesScreen from './components/screens/PlacesScreen/PlacesScreen';
@@ -108,8 +109,10 @@ const App = () => {
             <ProfileScreen />
           </Route>
 
-          {/* NOT FOUND */}
-          {/* <Route component={ErrorScreen} /> */}
+          <Route path='/dashboard' exact>
+            <Header />
+            <Dashboard />
+          </Route>
         </ErrorCatcher>
       </Router>
       <Footer />

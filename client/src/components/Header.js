@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import useStorage from '../hooks/useStorage';
+import useCredentials from '../hooks/useCredentials';
 import useError from '../hooks/useError';
 
 const Header = () => {
-  const [loggedIn, setLoggedIn] = useStorage();
+  const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
   const [name, setName] = useState(null);
   const history = useHistory();
 
   useEffect(async () => {
-    if (loggedIn) {
+    if (loggedIn && loggedIn !== 'admin') {
       try {
         const { data } = await axios.get(`/api/users/${loggedIn}`);
         setName(data.name);
       } catch (error) {
         handleError(error.response.data.msg, error.response.status);
       }
+    } else if (loggedIn === 'admin') {
+      setName('admin');
     }
   }, [loggedIn]);
 
@@ -26,10 +28,18 @@ const Header = () => {
     history.push('/');
   };
 
+  const link = (id) => {
+    if (id === 'admin') {
+      return `/#/dashboard`;
+    } else {
+      return `/#/users/${id}`;
+    }
+  };
+
   const navButtons = name ? (
     <>
       <li>
-        <a href={`/#/users/${loggedIn}`} className='light-text nav-links'>
+        <a href={link(loggedIn)} className='light-text nav-links'>
           {name.toUpperCase()}
         </a>
       </li>

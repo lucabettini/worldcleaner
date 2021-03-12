@@ -11,7 +11,7 @@ import auth, { sendToken } from '../middleware/authMiddleware.js';
 // @desc        Auth user & get token
 // @route       POST /api/auth/login
 // @access      Public
-// @response    User id and name
+// @response    User id and adminstatus
 const authUser = [
   // Login validation
   validate({
@@ -57,6 +57,7 @@ const forgotPassword = [
     // Get user based on POSTed email
     const user = await User.findOne({ email: req.body.email });
     if (!user) throw new Error('User not found');
+    if (user.isAdmin) throw new Error('Operation not available for admins');
 
     // Generate random token
     const token = crypto.randomBytes(32).toString('hex');
@@ -105,7 +106,7 @@ const forgotPassword = [
 // @desc        Reset password
 // @route       PATCH /api/auth/resetPassword/:token
 // @access      Public
-// @response    User id and name
+// @response    User id and adminstatus
 const resetPassword = [
   // Validation
   validate({

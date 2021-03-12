@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 // Create token functionality
 export const sendToken = (user, res) => {
-  const { id, name } = user;
+  const { id, isAdmin } = user;
 
   const payload = {
     user: {
@@ -22,7 +22,7 @@ export const sendToken = (user, res) => {
 
   res.json({
     id: id,
-    name: name,
+    isAdmin: isAdmin,
   });
 };
 
