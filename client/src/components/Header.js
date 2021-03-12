@@ -30,9 +30,9 @@ const Header = () => {
 
   const link = (id) => {
     if (id === 'admin') {
-      return `/#/dashboard`;
+      return `/dashboard`;
     } else {
-      return `/#/users/${id}`;
+      return `/users/${id}`;
     }
   };
 
@@ -52,7 +52,7 @@ const Header = () => {
   ) : (
     <>
       <li>
-        <a href='/#/register' className='light-text nav-links'>
+        <a href='/register' className='light-text nav-links'>
           JOIN US
         </a>
       </li>
@@ -64,7 +64,7 @@ const Header = () => {
       <nav>
         <div className='nav-wrapper righteous primary-bg'>
           <div className='container nav-container'>
-            <a href='/#/' className='light-text nav-logo nav-links'>
+            <a href='/' className='light-text nav-logo nav-links'>
               WORLD CLEANER
             </a>
             <ul className='right light-text'>{navButtons}</ul>

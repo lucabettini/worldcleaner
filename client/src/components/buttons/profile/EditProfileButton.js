@@ -8,7 +8,7 @@ const EditProfileButton = () => {
     >
       <a
         className=' btn-floating waves-effect waves-light btn-large righteous dark-bg light-text grande'
-        href={`/#/editProfile`}
+        href={`/editProfile`}
       >
         <i className='large material-icons light-text'>edit</i>
       </a>

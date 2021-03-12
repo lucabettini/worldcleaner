@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   useEffect(async () => {
     if (!loggedIn || loggedIn !== 'admin') {
-      history.push('/#/');
+      history.push('/');
     } else {
       setAdmin(true);
     }
@@ -73,12 +73,12 @@ const Dashboard = () => {
       return (
         <tr key={place._id}>
           <td>
-            <a className='dark-text' href={`/#/places/${place._id}`}>
+            <a className='dark-text' href={`/places/${place._id}`}>
               {place.name.toUpperCase()}
             </a>
           </td>
           <td>
-            <a className='dark-text' href={`/#/users/${place.user}`}>
+            <a className='dark-text' href={`/users/${place.user}`}>
               {getUsername(place.user)}
             </a>
           </td>
@@ -112,7 +112,7 @@ const Dashboard = () => {
       return (
         <tr key={user._id}>
           <td>
-            <a className='dark-text' href={`/#/users/${user._id}`}>
+            <a className='dark-text' href={`/users/${user._id}`}>
               {user.name.toUpperCase()}
             </a>
           </td>

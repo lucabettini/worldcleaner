@@ -1,4 +1,5 @@
 import express from 'express';
+import * as path from 'path';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import cookieParser from 'cookie-parser';
@@ -54,7 +55,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clean', cleanRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, './client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
 }
 
 app.use(notFound);

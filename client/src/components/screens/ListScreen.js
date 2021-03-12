@@ -113,7 +113,7 @@ const ListScreen = () => {
               return (
                 <a
                   className='collection-item dark-text light-bg'
-                  href={`/#/places/${place._id}`}
+                  href={`/places/${place._id}`}
                   key={place._id}
                 >
                   {place.name.toUpperCase()}
