@@ -86,7 +86,7 @@ const PlacesScreen = () => {
             <div className='row' style={{ display: 'flex' }}>
               <div style={{ marginTop: '1em' }}>
                 <p className='places-instructions'>
-                  Find a polluted place, make a picture and use the button below
+                  Find a polluted place, take a picture and use the button below
                   to upload it. You will get 10 special internet points!
                 </p>
               </div>

@@ -55,7 +55,6 @@ const HomeScreen = () => {
             className='home-img'
             style={{
               width: '100%',
-
               margin: '0 auto',
               display: 'block',
             }}

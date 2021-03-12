@@ -27,7 +27,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // Validation
-    if (!/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}$/.test(field.password)) {
+    if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.password)) {
       handleError('Invalid password');
     } else if (field.password !== field.confirmPassword) {
       handleError(`The two passwords don't match`);

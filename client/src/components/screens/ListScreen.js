@@ -64,15 +64,7 @@ const ListScreen = () => {
   if (status === 'succeeded') {
     return (
       <div className='page-container container'>
-        <form
-          action='#'
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            width: '60%',
-            margin: '2em auto 0 auto',
-          }}
-        >
+        <form action='#' className='list-form'>
           <label htmlFor='all'>
             <input
               type='checkbox'

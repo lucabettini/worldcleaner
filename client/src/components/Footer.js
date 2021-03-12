@@ -7,15 +7,15 @@ const Footer = () => {
       style={{ paddingTop: '5px', height: '20px' }}
     >
       <div className='center-align'>
-        <p style={{ fontSize: '0.8em' }}>
+        <p style={{ fontSize: '0.8em' }} className='dark-text'>
           Created by{' '}
-          <a href='https://lucabettini.github.io/' className='dark-text'>
+          <a href='https://lucabettini.github.io/' className='light-text'>
             Luca Bettini
           </a>{' '}
           | Code and credits{' '}
           <a
             href='https://github.com/lucabettini/worldcleaner'
-            className='dark-text'
+            className='light-text'
           >
             here
           </a>

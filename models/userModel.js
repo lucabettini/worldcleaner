@@ -26,11 +26,6 @@ const userSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    emailVerified: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     imgUrl: String,
     description: String,
     location: String,

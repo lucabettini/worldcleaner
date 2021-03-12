@@ -11,8 +11,8 @@ import auth, { sendToken } from '../middleware/authMiddleware.js';
 // @access      Public
 // @response    Array of all users' name and points
 const getUsers = expressAsyncHandler(async (req, res) => {
-  // Get only username and points
-  const users = await User.find({}).select('name points isAdmin');
+  // Get only username, points, admin stat and timestamp
+  const users = await User.find({}).select('name points isAdmin createdAt');
 
   res.json(users);
 });

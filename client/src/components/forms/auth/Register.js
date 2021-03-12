@@ -33,7 +33,9 @@ const Register = () => {
       handleError('Username too long');
     } else if (field.email === '') {
       handleError('Email is required');
-    } else if (!/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}$/.test(field.password)) {
+    } else if (
+      !/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.password)
+    ) {
       handleError('Invalid password');
     } else if (field.password !== field.confirmPassword) {
       handleError(`The two passwords don't match`);
