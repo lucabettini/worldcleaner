@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import * as path from 'path';
 import colors from 'colors';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
