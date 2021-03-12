@@ -77,7 +77,7 @@ const forgotPassword = [
       },
     });
 
-    const resetURL = `http://localhost:3000/resetPassword/${token}`;
+    const resetURL = `${process.env.BASE_URL}/resetPassword/${token}`;
 
     try {
       await transporter.sendMail({
