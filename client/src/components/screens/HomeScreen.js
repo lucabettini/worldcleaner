@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import icon from '../../styles/img/PLANET-01.svg';
+import icon from '../../styles/img/logo.svg';
 
 import useCredentials from '../../hooks/useCredentials';
 

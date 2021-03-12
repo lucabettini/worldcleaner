@@ -21,7 +21,7 @@ const AddPlaceButton = () => {
       style={{ width: '100%', fontSize: '1.4em' }}
       onClick={redirectAdd}
     >
-      <i className='large material-icons light-text'>add</i> ADD A NEW PLACE
+      <i className='large material-icons light-text'>add</i> ADD A PLACE
     </button>
   );
 };

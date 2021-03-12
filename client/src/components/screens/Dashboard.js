@@ -54,6 +54,15 @@ const Dashboard = () => {
     }
   };
 
+  const removeUser = async (id) => {
+    try {
+      await axios.delete(`/api/users/${id}`);
+      setReload(!reload);
+    } catch (error) {
+      handleError(error.response.data.msg, error.response.status);
+    }
+  };
+
   const placesContent = () => {
     const getUsername = (id) => {
       const user = users.filter((user) => user._id == id);
@@ -98,6 +107,34 @@ const Dashboard = () => {
     });
   };
 
+  const usersContent = () => {
+    return users.map((user) => {
+      return (
+        <tr key={user._id}>
+          <td>
+            <a className='dark-text' href={`/#/users/${user._id}`}>
+              {user.name.toUpperCase()}
+            </a>
+          </td>
+          <td className='dark-text'>
+            {new Date(user.createdAt).toLocaleDateString('en-gb')}
+          </td>
+          <td>
+            {user.isAdmin ? null : (
+              <button
+                className='waves-effect waves-light btn red darken-4 light-text'
+                style={{ marginRight: '10px' }}
+                onClick={() => removeUser(user._id)}
+              >
+                REMOVE USER
+              </button>
+            )}
+          </td>
+        </tr>
+      );
+    });
+  };
+
   if (admin && !loading) {
     return (
       <div className='page-container container'>
@@ -123,6 +160,26 @@ const Dashboard = () => {
               </thead>
 
               <tbody>{placesContent()}</tbody>
+            </table>
+            <h1
+              style={{
+                fontSize: '1.8em',
+                marginTop: '2em',
+                marginBottom: '0',
+              }}
+            >
+              USERS
+            </h1>
+            <table className='striped'>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Registration</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>{usersContent()}</tbody>
             </table>
           </div>
         </div>
