@@ -12,10 +12,9 @@ const useCredentials = () => {
       setState(null);
 
       try {
-        const res = await axios.post('/api/auth/logout', null, {
+        await axios.post('/api/auth/logout', null, {
           withCredentials: true,
         });
-        console.log(res.data.msg);
       } catch (error) {
         history.push('/error');
       }

@@ -95,7 +95,6 @@ const changePlace = [
   }),
   expressAsyncHandler(async (req, res) => {
     const { name, latitude, longitude, description } = req.body;
-    console.log(req.body);
     const place = await Place.findById(req.params.id);
     if (!place) {
       res.status(404);

@@ -15,7 +15,6 @@ const errorHandler = (err, req, res, next) => {
     res.status(err.statusCode).json({
       msg: err,
     });
-    console.log(req.body);
   } else {
     res.json({
       msg: err.message,

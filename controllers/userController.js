@@ -88,7 +88,6 @@ const updateUser = [
 
   expressAsyncHandler(async (req, res) => {
     const { name, location, description } = req.body;
-    console.log(req.body);
     const user = await User.findById(req.params.id);
     if (!user) {
       res.status(404);

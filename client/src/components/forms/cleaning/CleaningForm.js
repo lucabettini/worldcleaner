@@ -37,8 +37,6 @@ const CleaningForm = ({
         setLoading(true);
 
         // Check image type
-        console.log(imageFile.type);
-        console.log(typeof imageFile.type);
         if (imageFile.type !== 'image/jpeg' && imageFile.type !== 'image/png') {
           throw new Error();
         }

@@ -68,11 +68,6 @@ const forgotPassword = [
     user.pswResetExpires = Date.now() + 10 * 60 * 1000;
     await user.save();
 
-    // Send token
-    const resetURL = `http://localhost:3000/resetPassword/${token}`;
-
-    console.log(process.env.EMAIL_USERNAME);
-
     // Transporter
     const transporter = nodemail.createTransport({
       service: 'SendGrid',
@@ -81,6 +76,8 @@ const forgotPassword = [
         pass: process.env.EMAIL_PSW,
       },
     });
+
+    const resetURL = `http://localhost:3000/resetPassword/${token}`;
 
     try {
       await transporter.sendMail({
@@ -97,7 +94,6 @@ const forgotPassword = [
       user.pswResetToken = undefined;
       user.pswResetExpires = undefined;
       await user.save();
-      console.log(error);
       throw new Error('Error sending the email');
     }
   }),
@@ -115,7 +111,6 @@ const resetPassword = [
     }),
   }),
   expressAsyncHandler(async (req, res) => {
-    console.log(req.body.password);
     const hashedToken = crypto
       .createHash('sha256')
       .update(req.params.token)

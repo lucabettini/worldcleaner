@@ -26,9 +26,6 @@ const MyPlaces = () => {
     M.Collapsible.init(elem);
   });
 
-  const cookies = document.cookie;
-  console.log(cookies);
-
   const reportedPlaces = () => {
     const reported = sortedPlaces.filter((place) => place.user === id);
     const items = reported.map((place) => {
