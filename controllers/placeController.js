@@ -79,7 +79,7 @@ const getPlaceById = expressAsyncHandler(async (req, res) => {
 
 // @desc        Modify existing place
 // @route       PATCH /api/places/:id
-// @access      Private + Admin
+// @access      Private / Admin
 // @response    Confirmation message
 const changePlace = [
   auth,
@@ -122,7 +122,7 @@ const changePlace = [
 
 // @desc        Delete existing place
 // @route       DELETE /api/places/:id
-// @access      Private + Admin
+// @access      Private / Admin
 // @response    Confirmation message
 const deletePlace = [
   auth,

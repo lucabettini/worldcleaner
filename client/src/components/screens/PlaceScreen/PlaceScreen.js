@@ -155,14 +155,15 @@ const PlaceScreen = () => {
             </div>
           </div>
         </div>
-        {loggedIn === place.user ? (
+        {loggedIn === place.user || loggedIn === 'admin' ? (
           <div className='row' style={{ marginTop: '1em' }}>
             <div className='col s12 l8 offset-l2'>
               <EditPlaceButton id={id} />
             </div>
           </div>
         ) : null}
-        {loggedIn === place.cleaned.user ? (
+        {loggedIn === place.cleaned.user ||
+        (place.cleaned.isCleaned && loggedIn === 'admin') ? (
           <div className='row' style={{ marginTop: '1em' }}>
             <div className='col s12 l8 offset-l2'>
               <EditCleaningButton id={id} />

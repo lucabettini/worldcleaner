@@ -93,15 +93,13 @@ const updateUser = [
   expressAsyncHandler(async (req, res) => {
     const { name, location, description } = req.body;
     const user = await User.findById(req.params.id);
+
     if (!user) {
       res.status(404);
       throw new Error('User not found');
     } else {
-      // Check user
-      if (req.user.id !== req.params.id) {
-        res.status(401);
-        throw new Error('Unauthorized');
-      } else {
+      // Check if user is the same
+      if (req.user.id === req.params.id) {
         // Update user data
         if (name) {
           user.name = name;
@@ -114,6 +112,9 @@ const updateUser = [
         }
         await user.save();
         res.status(200).json({ msg: 'User updated', user: user });
+      } else {
+        res.status(401);
+        throw new Error('Unauthorized');
       }
     }
   }),
@@ -128,12 +129,13 @@ const deleteUser = [
 
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
+    const updater = await User.findById(req.user.id);
     if (!user) {
       res.status(404);
       throw new Error('User not found');
     } else {
       // Check is user is admin or authorized
-      if (user.isAdmin || req.user.id === req.params.id) {
+      if (req.user.id === req.params.id || updater.isAdmin) {
         await User.findByIdAndRemove(req.params.id);
         res.json({ msg: 'User removed' });
       } else {

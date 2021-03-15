@@ -51,7 +51,7 @@ const EditPlace = () => {
     }
 
     try {
-      const res = await axios.patch(`/api/users/${id}`, data, {
+      await axios.patch(`/api/users/${id}`, data, {
         withCredentials: true,
       });
       history.push(`/users/${id}`);

@@ -56,7 +56,7 @@ const addCleaning = [
 
 // @desc        Change infos about cleaning
 // @route       PUT /api/clean/:id
-// @access      Private
+// @access      Private / Admin
 // @response    Confirmation message
 const changeCleaning = [
   auth,
@@ -74,8 +74,9 @@ const changeCleaning = [
     const place = await Place.findById(req.params.id);
     // Make sure place exists and was cleaned
     if (place && place.cleaned.isCleaned) {
-      // Make sure user is OP of cleaning
-      if (place.cleaned.user.toString() === req.user.id || isAdmin) {
+      // Make sure user is OP or admin
+      const user = await User.findById(req.user.id);
+      if (place.cleaned.user.toString() === req.user.id || user.isAdmin) {
         if (path) {
           place.cleaned.imgUrl = path;
         }
@@ -105,12 +106,9 @@ const deleteCleaning = [
   expressAsyncHandler(async (req, res) => {
     const place = await Place.findById(req.params.id);
     if (place && place.cleaned.isCleaned) {
-      // Check if user is admin
-      const user = await User.findById(req.user.id);
-      const isAdmin = user.isAdmin;
-
       // Make sure user is OP or admin
-      if (place.cleaned.user.toString() === req.user.id || isAdmin) {
+      const user = await User.findById(req.user.id);
+      if (place.cleaned.user.toString() === req.user.id || user.isAdmin) {
         place.cleaned.imgUrl = undefined;
         place.cleaned.user = undefined;
         place.cleaned.timestamp = undefined;
