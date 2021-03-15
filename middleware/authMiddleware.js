@@ -1,8 +1,26 @@
 import jwt from 'jsonwebtoken';
 
-// Create token functionality
-export const sendToken = (user, res) => {
-  const { id, isAdmin } = user;
+// Auth middleware
+const auth = (req, res, next) => {
+  // Get token from header
+  const token = req.cookies.jwt;
+  if (!token) {
+    return res.status(401).json({ msg: 'No token, authorization denied' });
+  }
+
+  // Verify token
+  try {
+    const secret = process.env.JWT_SECRET;
+    const decoded = jwt.verify(token, secret);
+    req.user = decoded.user;
+    next();
+  } catch (err) {
+    res.status(401).json({ msg: 'Token not valid' });
+  }
+};
+
+const sendToken = (req, res) => {
+  const { id, isAdmin } = req.tokenInfo;
 
   const payload = {
     user: {
@@ -26,21 +44,4 @@ export const sendToken = (user, res) => {
   });
 };
 
-// Auth middleware
-export default function (req, res, next) {
-  // Get token from header
-  const token = req.cookies.jwt;
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
-
-  // Verify token
-  try {
-    const secret = process.env.JWT_SECRET;
-    const decoded = jwt.verify(token, secret);
-    req.user = decoded.user;
-    next();
-  } catch (err) {
-    res.status(401).json({ msg: 'Token not valid' });
-  }
-}
+export { auth, sendToken };

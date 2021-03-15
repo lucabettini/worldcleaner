@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 import User from '../models/userModel.js';
 
-import auth, { sendToken } from '../middleware/authMiddleware.js';
+import { auth, sendToken } from '../middleware/authMiddleware.js';
 
 // @desc        Get all users
 // @route       GET /api/users
@@ -30,7 +30,7 @@ const registerUser = [
       password: Joi.string().required(),
     }),
   }),
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res, next) => {
     const { name, email, password } = req.body;
 
     const sameEmail = await User.findOne({ email });
@@ -51,9 +51,13 @@ const registerUser = [
 
     await user.save();
 
-    // JWT
-    sendToken(user, res);
+    req.tokenInfo = {
+      id: user.id,
+      isAdmin: user.isAdmin,
+    };
+    next();
   }),
+  sendToken,
 ];
 
 // @desc        Fetch a single user

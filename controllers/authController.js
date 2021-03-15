@@ -6,7 +6,7 @@ import nodemail from 'nodemailer';
 
 import User from '../models/userModel.js';
 
-import auth, { sendToken } from '../middleware/authMiddleware.js';
+import { auth, sendToken } from '../middleware/authMiddleware.js';
 
 // @desc        Auth user & get token
 // @route       POST /api/auth/login
@@ -22,7 +22,7 @@ const authUser = [
     }),
   }),
 
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -37,9 +37,13 @@ const authUser = [
       throw new Error('Invalid password');
     }
 
-    // JWT
-    sendToken(user, res);
+    req.tokenInfo = {
+      id: user.id,
+      isAdmin: user.isAdmin,
+    };
+    next();
   }),
+  sendToken,
 ];
 
 // @desc        Forgot password request
@@ -134,9 +138,13 @@ const resetPassword = [
     user.pswResetExpires = undefined;
     await user.save();
 
-    // Log in user
-    sendToken(user, res);
+    req.tokenInfo = {
+      id: user.id,
+      isAdmin: user.isAdmin,
+    };
+    next();
   }),
+  sendToken,
 ];
 
 // @desc        Change password (while logged in)

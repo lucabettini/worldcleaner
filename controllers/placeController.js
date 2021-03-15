@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler';
 import { validate, Joi } from 'express-validation';
 
-import auth from '../middleware/authMiddleware.js';
+import { auth } from '../middleware/authMiddleware.js';
 import { upload } from '../middleware/multerMiddleware.js';
 import Place from '../models/placeModel.js';
 import User from '../models/userModel.js';
@@ -79,7 +79,7 @@ const getPlaceById = expressAsyncHandler(async (req, res) => {
 
 // @desc        Modify existing place
 // @route       PATCH /api/places/:id
-// @access      Private
+// @access      Private + Admin
 // @response    Confirmation message
 const changePlace = [
   auth,
@@ -96,13 +96,14 @@ const changePlace = [
   expressAsyncHandler(async (req, res) => {
     const { name, latitude, longitude, description } = req.body;
     const place = await Place.findById(req.params.id);
+    const user = await User.findById(place.user);
     if (!place) {
       res.status(404);
       throw new Error('Place not found');
     }
 
-    // Make sure user is OP
-    if (place.user._id.toString() !== req.user.id) {
+    // Make sure user is OP or Admin
+    if (place.user._id.toString() !== req.user.id || user.isAdmin) {
       res.status(401);
       throw new Error('Unauthorized');
     }
@@ -131,12 +132,10 @@ const deletePlace = [
       res.status(400);
       throw new Error('Place not found');
     }
-    // Check if user is admin
     const user = await User.findById(req.user.id);
-    const isAdmin = user.isAdmin;
 
     // Make sure user is OP or admin
-    if (place.user._id.toString() === req.user.id || isAdmin) {
+    if (place.user._id.toString() === req.user.id || user.isAdmin) {
       // Remove place
       await Place.findByIdAndRemove(req.params.id);
       // Remove user's points

@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler';
 import { validate, Joi } from 'express-validation';
 import { upload } from '../middleware/multerMiddleware.js';
-import auth from '../middleware/authMiddleware.js';
+import { auth } from '../middleware/authMiddleware.js';
 import Place from '../models/placeModel.js';
 import User from '../models/userModel.js';
 
@@ -92,10 +92,6 @@ const changeCleaning = [
     } else {
       res.status(404);
       throw new Error('Place does not exist or is not cleaned');
-    }
-
-    if (!place) {
-    } else {
     }
   }),
 ];
