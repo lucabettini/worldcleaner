@@ -22,6 +22,7 @@ const auth = (req, res, next) => {
 const sendToken = (req, res) => {
   const { id, isAdmin } = req.tokenInfo;
 
+  // Create new jwt token
   const payload = {
     user: {
       id,
@@ -30,14 +31,15 @@ const sendToken = (req, res) => {
   const secret = process.env.JWT_SECRET;
   const token = jwt.sign(payload, secret, { expiresIn: '2h' });
 
+  // Store token on session cookie
   const cookieOptions = {
     secure: process.env.NODE_ENV === 'development' ? false : true,
     httpOnly: true,
     sameSite: 'Strict',
   };
-
   res.cookie('jwt', token, cookieOptions);
 
+  // Send infos to client
   res.json({
     id: id,
     isAdmin: isAdmin,

@@ -8,14 +8,12 @@ import User from '../models/userModel.js';
 
 import { auth, sendToken } from '../middleware/authMiddleware.js';
 
-// @desc        Auth user & get token
+// @desc        Login user & get token
 // @route       POST /api/auth/login
 // @access      Public
 // @response    User id and adminstatus
 const authUser = [
-  // Login validation
   validate({
-    // Validation
     body: Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().required(),
@@ -26,16 +24,10 @@ const authUser = [
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) {
-      res.status(400);
-      throw new Error('User not found');
-    }
+    if (!user) throw new Error('User not found');
 
     const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      res.status(401);
-      throw new Error('Invalid password');
-    }
+    if (!isMatch) throw new Error('Invalid password');
 
     req.tokenInfo = {
       id: user.id,
@@ -43,7 +35,20 @@ const authUser = [
     };
     next();
   }),
+
   sendToken,
+];
+
+// @desc        Logout user
+// @route       POST /api/auth/logout
+// @access      Private
+// @response    Confirmation message
+const logoutUser = [
+  auth,
+  (req, res) => {
+    res.clearCookie('jwt');
+    res.json({ msg: 'Logout successfull' });
+  },
 ];
 
 // @desc        Forgot password request
@@ -51,12 +56,12 @@ const authUser = [
 // @access      Public
 // @response    Success message
 const forgotPassword = [
-  // Validation
   validate({
     body: Joi.object({
       email: Joi.string().email().required(),
     }),
   }),
+
   expressAsyncHandler(async (req, res) => {
     // Get user based on POSTed email
     const user = await User.findOne({ email: req.body.email });
@@ -69,10 +74,10 @@ const forgotPassword = [
 
     // Send hash token to db
     user.pswResetToken = hashedToken;
-    user.pswResetExpires = Date.now() + 10 * 60 * 1000;
+    user.pswResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
     await user.save();
 
-    // Transporter
+    // Send email to user using transporter function
     const transporter = nodemail.createTransport({
       service: 'SendGrid',
       auth: {
@@ -91,10 +96,11 @@ const forgotPassword = [
         html: `<h3>To reset your password, <a href='${resetURL}'>click here.</a></h3><p>Otherwise ignore this message</p>`,
       });
 
-      res.status(200).json({
+      res.json({
         msg: 'Token sent to email',
       });
     } catch (error) {
+      // Manually delete tokens in case of error
       user.pswResetToken = undefined;
       user.pswResetExpires = undefined;
       await user.save();
@@ -108,28 +114,25 @@ const forgotPassword = [
 // @access      Public
 // @response    User id and adminstatus
 const resetPassword = [
-  // Validation
   validate({
     body: Joi.object({
       password: Joi.string().required(),
     }),
   }),
+
   expressAsyncHandler(async (req, res) => {
+    // Check if token is still valid
     const hashedToken = crypto
       .createHash('sha256')
       .update(req.params.token)
       .digest('hex');
 
-    // Check if token is still valid
     const user = await User.findOne({
       pswResetToken: hashedToken,
       pswResetExpires: { $gt: Date.now() },
     });
 
-    if (!user) {
-      res.status(401);
-      throw new Error('Invalid token');
-    }
+    if (!user) throw new Error('Invalid token');
 
     // Update password
     const salt = await bcrypt.genSalt(10);
@@ -138,6 +141,7 @@ const resetPassword = [
     user.pswResetExpires = undefined;
     await user.save();
 
+    // Login user
     req.tokenInfo = {
       id: user.id,
       isAdmin: user.isAdmin,
@@ -153,13 +157,14 @@ const resetPassword = [
 // @response    Confirmation message
 const changePassword = [
   auth,
-  // Validation
+
   validate({
     body: Joi.object({
       oldPassword: Joi.string().required(),
       newPassword: Joi.string().required(),
     }),
   }),
+
   expressAsyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
@@ -167,11 +172,9 @@ const changePassword = [
 
     // Check the old password
     const isMatch = user.matchPassword(oldPassword);
-    if (!isMatch) {
-      res.status(401);
-      throw new Error('Old password not valid');
-    }
+    if (!isMatch) throw new Error('Old password not valid');
 
+    // Save the new password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
     await user.save();
@@ -180,16 +183,4 @@ const changePassword = [
   }),
 ];
 
-// @desc        Logout user
-// @route       POST /api/auth/logout
-// @access      Private
-// @response    Confirmation message
-const logoutUser = [
-  auth,
-  (req, res) => {
-    res.clearCookie('jwt');
-    res.json({ msg: 'Logout successfull' });
-  },
-];
-
-export { authUser, forgotPassword, resetPassword, changePassword, logoutUser };
+export { authUser, logoutUser, forgotPassword, resetPassword, changePassword };

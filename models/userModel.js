@@ -26,7 +26,6 @@ const userSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    imgUrl: String,
     description: String,
     location: String,
     pswResetToken: String,
@@ -37,6 +36,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// Compare password with hashed version stored on db
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

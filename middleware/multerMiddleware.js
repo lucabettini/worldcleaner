@@ -4,13 +4,13 @@ import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
 import { v4 as uuid } from 'uuid';
 
-// Bucket config
+// AWS Bucket config
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
-// Storage configuration
+// Multer storage configuration
 const storage = multerS3({
   s3: s3,
   bucket: 'worldcleaner-storage',

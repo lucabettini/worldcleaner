@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import * as path from 'path';
 import colors from 'colors';
+
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -16,6 +17,8 @@ import authRoutes from './routes/authRoutes.js';
 import cleanRoutes from './routes/cleanRoutes.js';
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+
+// DATABASE AND APP CONFIGURATION
 
 dotenv.config();
 
@@ -32,7 +35,7 @@ app.use(cookieParser());
 // Security HTTP headers
 app.use(
   helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: false, // disabled in order to use the map on client
   })
 );
 
@@ -49,11 +52,14 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // ROUTES
+
+// Api
 app.use('/api/places', placesRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/clean', cleanRoutes);
 
+// Frontend
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
@@ -63,10 +69,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Error Middleware
 app.use(notFound);
-
-// ERROR HANDLER
 app.use(errorHandler);
+
+// START SERVER
 
 const PORT = process.env.PORT || 5000;
 
