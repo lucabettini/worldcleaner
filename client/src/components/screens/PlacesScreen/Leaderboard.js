@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+
 import useError from '../../../hooks/useError';
 
 const Leaderboard = () => {
@@ -19,7 +20,7 @@ const Leaderboard = () => {
 
   const sortedUsers = () => {
     const usersArr = [...users];
-    // find Admin and remove it from the list
+    // sort users by points, get only first 10
     const sortedByPoints = usersArr
       .sort((a, b) => (a.points > b.points ? -1 : 1))
       .slice(0, 10);

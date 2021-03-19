@@ -3,7 +3,17 @@ import { useDispatch } from 'react-redux';
 import { throwError } from '../redux/placesSlice';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
+
 import useCredentials from './useCredentials';
+
+// This hooks sorts all the errors thrown inside components or
+// by axios if a request to the server fails. Either displays
+// a toast to the user (and additional infos in console if in
+// development mode) or dispatches the thrownError function to
+// the reducer, changing the global state.
+// The ErrorCather component listens to this kind of state changes,
+// redirecting the user immediately to the ErrorScreen component,
+// where the state is resetted to its initial state.
 
 const useError = () => {
   const history = useHistory();
@@ -12,14 +22,13 @@ const useError = () => {
 
   const handleError = (message, statusCode, error) => {
     if (!statusCode) {
-      // Not axios errors
+      // ERRORS FROM COMPONENTS
       if (error && process.env.NODE_ENV === 'development') {
         console.error(error);
       }
-
       M.toast({ html: message });
     } else {
-      // Axios errors
+      // ERRORS FROM SERVER (FAILED AXIOS REQUESTS)
       if (process.env.NODE_ENV === 'development') {
         console.log(`${statusCode} - ${message}`);
       }
@@ -39,7 +48,7 @@ const useError = () => {
         // Authorization denied
         case 401:
           if (message === 'Token not valid') {
-            // If the session cookie is more than 2 hours old
+            // Session cookie has expired
             setLoggedIn('logout');
             history.push('/login');
           } else if (message === 'Invalid password') {
@@ -51,8 +60,8 @@ const useError = () => {
               html: 'Too much time has passed, try sending another email!',
             });
           } else if (message === 'Old password not valid') {
-            // Attempted to change password while loggedin. The user
-            // is logged out for pre-emptive security.
+            // Failed attempt to change password while logged in.
+            // User is logged out for pre-emptive security.
             M.toast({
               html: 'Old password not valid, logging out...',
             });
@@ -76,6 +85,3 @@ const useError = () => {
 };
 
 export default useError;
-
-// Casi da considerare
-// Errori nel caricamento della mappa (imputtanano tutto)

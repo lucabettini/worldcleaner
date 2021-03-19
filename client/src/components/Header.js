@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+
 import useCredentials from '../hooks/useCredentials';
 import useError from '../hooks/useError';
+
+// PAGE STRUCTURE:
+// As soon as this components renders, it checks if there
+// is an ID (or the string 'admin') saved on sessionStorage.
+// If not, displays a register link. When an ID is available,
+// the component renders again, adding a link to Profile or
+// admin Dashboard and the logout button.
+
+// API REQUESTS
+// @get   /api/users/:id
 
 const Header = () => {
   const [loggedIn, setLoggedIn] = useCredentials();
@@ -13,6 +24,7 @@ const Header = () => {
   useEffect(async () => {
     if (loggedIn && loggedIn !== 'admin') {
       try {
+        // Ask server the username of logged in user
         const { data } = await axios.get(`/api/users/${loggedIn}`);
         setName(data.name);
       } catch (error) {
@@ -30,9 +42,9 @@ const Header = () => {
 
   const link = (id) => {
     if (id === 'admin') {
-      return `/dashboard`;
+      return `/dashboard`; // Admin dashboard
     } else {
-      return `/users/${id}`;
+      return `/users/${id}`; // User profile screen
     }
   };
 

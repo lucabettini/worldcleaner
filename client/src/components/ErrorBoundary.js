@@ -1,5 +1,9 @@
 import React from 'react';
+
 import ErrorScreen from '../components/screens/ErrorScreen';
+
+// This component catches all other uncatched errors, including
+// those occuring in the Redux store.
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

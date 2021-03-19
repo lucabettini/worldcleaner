@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import useError from '../../../hooks/useError';
 
+// API REQUESTS
+// @delete     /api/places/:id
+
 const DeletePlaceButton = () => {
   const history = useHistory();
   const id = useParams().id;

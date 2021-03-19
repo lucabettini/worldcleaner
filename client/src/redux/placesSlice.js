@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// INIT STATE
+
 const initialState = {
   places: [],
   status: 'idle',
@@ -8,11 +10,14 @@ const initialState = {
   currentPlace: '',
 };
 
-// GET api/places           @res        Data of every place
+// THUNKS
+
 export const fetchPlaces = createAsyncThunk('places/fetchPlaces', async () => {
   const res = await axios.get('/api/places');
   return res.data;
 });
+
+// SLICE
 
 const placesSlice = createSlice({
   name: 'places',
@@ -26,7 +31,6 @@ const placesSlice = createSlice({
     },
   },
   extraReducers: {
-    // GET api/places
     [fetchPlaces.pending]: (state, action) => {
       state.status = 'loading';
     },

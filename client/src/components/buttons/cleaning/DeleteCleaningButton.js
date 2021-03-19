@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import useError from '../../../hooks/useError';
 
+// API REQUESTS
+// @delete     /api/clean/:id
+
 const DeleteCleaningButton = () => {
   const history = useHistory();
   const id = useParams().id;
@@ -18,7 +21,7 @@ const DeleteCleaningButton = () => {
       });
       setClick('success');
       setTimeout(() => {
-        history.push('/places');
+        history.push(`/places/${id}`);
       }, 500);
     } catch (error) {
       handleError(error.response.data.msg, error.response.status);

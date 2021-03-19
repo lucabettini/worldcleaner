@@ -12,15 +12,24 @@ import EditCleaningButton from '../../buttons/cleaning/EditCleaningButton';
 import FadeImages from './FadeImages';
 import Map from '../../Map';
 
+// PAGE STRUCTURE:
+// - Title (place name)
+// - Description with links to user's profile
+// - Images (if two, fadeImages component)
+// - Map centered on place coordinates
+// - EditPlaceButton (shown to OP and admin)
+// - If the place was cleaned: EditCleaningButton (shown to OP and admin)
+// - If the place has to be cleaned: AddCleaningButton (shown to everyone)
+
+// API REQUESTS
+// @get   /api/places/:id
+// @get   /api/users/:id
+
 const PlaceScreen = () => {
   const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
-  const [place, setPlace] = useState({
-    // If we don't include this, place.cleaned is undefined during the first
-    // render, before useEffect makes the API call
-    // cleaned: '',
-  });
+  const [place, setPlace] = useState({});
   const [status, setStatus] = useState('loading');
   const id = useParams().id;
 
@@ -29,9 +38,10 @@ const PlaceScreen = () => {
       try {
         const { data } = await axios.get(`/api/places/${id}`);
 
-        // If the OP's account was deleted, we will get a 404 from
-        // the server; if the problem is elsewhere, we catch the error
-        // with the outer try/catch block
+        // Here we send additional request to load the usernames.
+        // If OP's account was deleted, the server will respond with
+        // a 404. All other errors are re-thrown to the outer
+        // try-catch block.
 
         try {
           const res = await axios.get(`/api/users/${data.user}`);
@@ -43,7 +53,6 @@ const PlaceScreen = () => {
             throw new Error(error);
           }
         }
-
         if (data.cleaned.isCleaned) {
           try {
             const res = await axios.get(`/api/users/${data.cleaned.user}`);
@@ -58,7 +67,7 @@ const PlaceScreen = () => {
         }
 
         setPlace(data);
-        setStatus('succedeed');
+        setStatus('succedeed'); // page is rendered
       } catch (error) {
         handleError(error.response.data.msg, error.response.status);
         setStatus('failed');
@@ -79,6 +88,7 @@ const PlaceScreen = () => {
   } else {
     return (
       <div className='page-container container'>
+        {/* TITLE */}
         <div className='row'>
           <div className='col s12 l8 offset-l2'>
             <h1
@@ -92,7 +102,7 @@ const PlaceScreen = () => {
             </h1>
           </div>
         </div>
-
+        {/* DETAILS */}
         <div className='row'>
           <div className='col s12 l8 offset-l2'>
             <p>
@@ -125,6 +135,7 @@ const PlaceScreen = () => {
             ) : null}
           </div>
         </div>
+        {/* IMAGES */}
         <div className='row' style={{ marginTop: '1em' }}>
           <div className='col s12 l8 offset-l2'>
             {place.cleaned.isCleaned ? (
@@ -143,6 +154,7 @@ const PlaceScreen = () => {
             )}
           </div>
         </div>
+        {/* MAP */}
         <div className='row' style={{ marginTop: '1em' }}>
           <div className='col s12 l8 offset-l2'>
             <div>
@@ -155,6 +167,7 @@ const PlaceScreen = () => {
             </div>
           </div>
         </div>
+        {/* EDIT BUTTON */}
         {loggedIn === place.user || loggedIn === 'admin' ? (
           <div className='row' style={{ marginTop: '1em' }}>
             <div className='col s12 l8 offset-l2'>
@@ -162,6 +175,7 @@ const PlaceScreen = () => {
             </div>
           </div>
         ) : null}
+        {/* EDIT CLEANING BUTTON */}
         {loggedIn === place.cleaned.user ||
         (place.cleaned.isCleaned && loggedIn === 'admin') ? (
           <div className='row' style={{ marginTop: '1em' }}>

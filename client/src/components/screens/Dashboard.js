@@ -1,8 +1,20 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+
 import useCredentials from '../../hooks/useCredentials';
 import useError from '../../hooks/useError';
+
+// PAGE STRUCTURE:
+// - Places collection, with links and remove buttons
+// - Users collection, with links and remove buttons
+
+// API REQUESTS
+// @get     /api/places/
+// @get     /api/users/
+// @delete  /api/places/:id
+// @delete  /api/clean/:id
+// @delete  /api/users/:id
 
 const Dashboard = () => {
   const [loggedIn, setLoggedIn] = useCredentials();
@@ -17,12 +29,15 @@ const Dashboard = () => {
 
   useEffect(async () => {
     if (!loggedIn || loggedIn !== 'admin') {
+      // Redirect users without privileges
       history.push('/');
     } else {
       setAdmin(true);
     }
   }, [loggedIn]);
 
+  // Get data and save them on state, invoked again
+  // whenever a place, clean info or user are removed.
   useEffect(async () => {
     try {
       const places = await axios.get('/api/places');
@@ -36,27 +51,10 @@ const Dashboard = () => {
     }
   }, [reload]);
 
-  const removePlace = async (id) => {
+  const removeItem = async (id, item) => {
     try {
-      await axios.delete(`/api/places/${id}`);
-      setReload(!reload);
-    } catch (error) {
-      handleError(error.response.data.msg, error.response.status);
-    }
-  };
-
-  const removeCleaning = async (id) => {
-    try {
-      await axios.delete(`/api/clean/${id}`);
-      setReload(!reload);
-    } catch (error) {
-      handleError(error.response.data.msg, error.response.status);
-    }
-  };
-
-  const removeUser = async (id) => {
-    try {
-      await axios.delete(`/api/users/${id}`);
+      await axios.delete(`/api/${item}/${id}`);
+      // Force page re-rendering with new data
       setReload(!reload);
     } catch (error) {
       handleError(error.response.data.msg, error.response.status);
@@ -89,14 +87,14 @@ const Dashboard = () => {
             <button
               className='waves-effect waves-light btn red darken-4 light-text'
               style={{ marginRight: '10px' }}
-              onClick={() => removePlace(place._id)}
+              onClick={() => removeItem(place._id, 'places')}
             >
               REMOVE PLACE
             </button>
             {place.cleaned?.isCleaned ? (
               <button
                 className='waves-effect waves-light btn dark-bg light-text'
-                onClick={() => removeCleaning(place._id)}
+                onClick={() => removeItem(place._id, 'clean')}
               >
                 REMOVE CLEANING
               </button>
@@ -124,7 +122,7 @@ const Dashboard = () => {
               <button
                 className='waves-effect waves-light btn red darken-4 light-text'
                 style={{ marginRight: '10px' }}
-                onClick={() => removeUser(user._id)}
+                onClick={() => removeItem(user._id, 'users')}
               >
                 REMOVE USER
               </button>

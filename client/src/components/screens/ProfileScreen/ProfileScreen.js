@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 import axios from 'axios';
 
 import useCredentials from '../../../hooks/useCredentials';
+import useError from '../../../hooks/useError';
+
 import EditProfileButton from '../../buttons/profile/EditProfileButton';
 import MyPlaces from './MyPlaces';
-import useError from '../../../hooks/useError';
+
+// PAGE STRUCTURE:
+// Details on user (with edit links if user is the same)
+// MyPlaces Component (two collapsibles with links)
+// EditProfileButton (shown only if user is the same)
+
+// API REQUESTS
+// @get     /api/users/:id
+// @get     /api/places (through MyPlaces component)
 
 const ProfileScreen = () => {
   const [loggedIn, setLoggedIn] = useCredentials();

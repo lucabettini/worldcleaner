@@ -4,6 +4,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
+// API REQUESTS
+// @delete     /api/users/:id
+
 const DeleteProfileButton = () => {
   const history = useHistory();
   const id = useParams().id;
@@ -19,6 +22,7 @@ const DeleteProfileButton = () => {
         withCredentials: true,
       });
       setClick('success');
+      // Redirect to placeScreen after half a second
       setTimeout(() => {
         history.push('/places');
       }, 500);
@@ -39,7 +43,7 @@ const DeleteProfileButton = () => {
         className='waves-effect waves-light btn  red darken-4 light-text'
         type='button'
       >
-        <i className='large material-icons light-text'>highlight_off</i> REMOVE
+        <i className='large material-icons light-text'>highlight_off</i> DELETE
         ACCOUNT
       </button>
     );

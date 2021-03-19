@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { clearError } from '../../redux/placesSlice';
 
 const errorContainer = {
@@ -14,6 +15,8 @@ const errorText = {
 const ErrorScreen = () => {
   const dispatch = useDispatch();
 
+  // Resets global state to error: false after
+  // this screen is rendered.
   useEffect(() => {
     return () => {
       dispatch(clearError);

@@ -13,6 +13,18 @@ import Map from '../../Map';
 import AddPlaceButton from '../../buttons/place/AddPlaceButton';
 import Leaderboard from './Leaderboard';
 
+// PAGE STRUCTURE:
+// - Map with all places and links to each one of them
+// - Place count with link to ListScreen component
+// - Instructions on adding places
+// - Add place button
+// - Instructions on adding cleaning
+// - Collapsible Leaderboard component
+
+// API REQUESTS
+// @get     /api/places/  (through Redux thunk)
+// @get     /api/users/   (through Leaderboard component)
+
 const flexContainer = {
   display: 'flex',
   justifyContent: 'space-between',
@@ -49,6 +61,7 @@ const PlacesScreen = () => {
     return (
       <div className='page-container container'>
         <div className='places-wrapper'>
+          {/* MAP */}
           <div className='places-map-container'>
             <Map
               places={places}
@@ -83,6 +96,7 @@ const PlacesScreen = () => {
                 </a>
               </div>
             </div>
+            {/* INSTRUCTIONS AND BUTTON */}
             <div className='row' style={{ display: 'flex' }}>
               <div style={{ marginTop: '1em' }}>
                 <p className='places-instructions'>
@@ -103,12 +117,16 @@ const PlacesScreen = () => {
             >
               <div>
                 <p className='places-instructions'>
-                  To clean a place, search it on the map and click to open it.
-                  Then use the leaf button to add another picture. You will get
-                  50 special internet points!
+                  To clean a place, search it on the map (or in{' '}
+                  <a href='/places/list/polluted' className='primary-text'>
+                    this list
+                  </a>
+                  ) and click to open it. Then use the leaf button to add
+                  another picture. You will get 50 special internet points!
                 </p>
               </div>
             </div>
+            {/* LEADERBOARD */}
             <div className='row'>
               <Leaderboard />
             </div>

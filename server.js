@@ -35,7 +35,7 @@ app.use(cookieParser());
 // Security HTTP headers
 app.use(
   helmet({
-    contentSecurityPolicy: false, // disabled in order to use the map on client
+    contentSecurityPolicy: false,
   })
 );
 

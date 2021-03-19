@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   selectStatus,
   selectSortedPlaces,
   fetchPlaces,
 } from '../../redux/placesSlice';
+
+// PAGE STRUCTURE:
+// - Inline checkbox (manipulated to behave like a radio input)
+// - Collections ALL / POLLUTED / CLEANED (max 30 values)
+//   with links to individual places
+
+// API REQUESTS
+// @get   /api/places/    (through Redux Thunk)
 
 const ListScreen = () => {
   const dispatch = useDispatch();
@@ -23,6 +32,8 @@ const ListScreen = () => {
     cleaned: false,
   });
 
+  // An initial value, either cleaned or polluted, is set,
+  // depending on which link the user has followed to came here
   const { slug } = useParams();
   useEffect(() => {
     setChecked({
@@ -31,22 +42,28 @@ const ListScreen = () => {
     });
   }, [slug]);
 
+  // This function makes all others options false
+  // when one is changed (either selected or deselected)
+  // thus providing a radio-like behaviour, but using
+  // materialize.css styling for checkbox inputs.
   const onCheck = (e) => {
-    // This function makes all others options false
-    // when one is changed (either selected or deselected)
-    // thus providing us a radio-like behaviour.
+    // Create a new object, cannot modify state directly
     const newCheck = Object.assign({}, checked);
     Object.keys(newCheck).map((key) => {
       if (key !== e.target.name) {
         newCheck[key] = false;
+        // Change checked status on HTML - otherwise the other
+        // options stay checked
         document.getElementById(key).checked = false;
       } else {
         newCheck[e.target.name] = !checked[e.target.name];
       }
     });
+    // Change state with the new object
     setChecked(newCheck);
   };
 
+  // This function changes the rendering when some option is chosen
   const selectPlaces = () => {
     if (checked.all) {
       return places;
