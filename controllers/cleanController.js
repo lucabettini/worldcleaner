@@ -49,7 +49,7 @@ const addCleaning = [
 ];
 
 // @desc        Change infos about cleaning
-// @route       PUT /api/clean/:id
+// @route       PATCH /api/clean/:id
 // @access      Private / Admin
 // @response    Confirmation message
 const changeCleaning = [

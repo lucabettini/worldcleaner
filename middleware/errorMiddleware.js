@@ -32,8 +32,8 @@ const notFound = (req, res, next) => {
   next(error);
 };
 
-// Express error middleware must always take four arguments
 const errorHandler = (err, req, res, next) => {
+  // next argument must always be included
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);
 
@@ -44,7 +44,6 @@ const errorHandler = (err, req, res, next) => {
     });
   } else {
     // Error is thrown manually
-
     // Change status - indexOf returns -1 if the search value never occurs
     if (errorMessages.badReq.indexOf(err.message) > -1) {
       res.status(400);

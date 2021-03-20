@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 
 import { selectError } from '../redux/placesSlice';
 
-// This components listens to changes in the error
+// This component listens to changes in the error
 // property of global state and redirects to errorScreen
 // if that is set to true. Renders everything else otherwise.
 
