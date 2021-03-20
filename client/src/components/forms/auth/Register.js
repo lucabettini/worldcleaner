@@ -5,8 +5,20 @@ import axios from 'axios';
 import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
+// PAGE STRUCTURE:
+// - Username input
+// - Email input
+// - Password input
+// - Password confirmation input
+// - Sign up button
+// - Login link
+
+// API REQUESTS
+// @post    /api/users
+
 const Register = () => {
   const history = useHistory();
+
   const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
@@ -34,6 +46,7 @@ const Register = () => {
     } else if (field.email === '') {
       handleError('Email is required');
     } else if (
+      // At least 8 char, uppercase, lowercase and number included
       !/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.password)
     ) {
       handleError('Invalid password');
@@ -47,7 +60,7 @@ const Register = () => {
           password: field.password,
         });
 
-        // Save on sessionStorage and exit
+        // Login and redirect to /places
         const { id } = res.data;
         await setLoggedIn(id);
         history.push('/places');
@@ -80,7 +93,6 @@ const Register = () => {
             id='password'
             onChange={handleChange}
           />
-
           <label htmlFor='password'>Password</label>
         </div>
         <div className='input-field' style={{ marginBottom: '2em' }}>

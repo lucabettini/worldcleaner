@@ -5,8 +5,19 @@ import axios from 'axios';
 import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
+// PAGE STRUCTURE:
+// - Email input
+// - Password input
+// - Forgot password link
+// - Log In button
+// - Register link
+
+// API REQUESTS
+// @post    /api/auth/login
+
 const Login = () => {
   const history = useHistory();
+
   const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
@@ -24,6 +35,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validation
     if (field.email === '') {
       handleError('Email is required');
     } else if (field.password === '') {
@@ -34,8 +46,9 @@ const Login = () => {
           email: field.email,
           password: field.password,
         });
-        // Save id on sessionStorage and redirect
-        // Controllare se user è admin oppure no
+
+        // If user is admin, his ID on sessionStorage is saved
+        // as 'admin'. Otherwise is logged in as a regular user.
         const { id, isAdmin } = res.data;
         if (isAdmin) {
           await setLoggedIn('admin');

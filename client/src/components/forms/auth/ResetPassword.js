@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
+// Disclaimer: this form allows the user to reset his password
+// after receiving the token by email. See the ChangePassword
+// component to change the password while logged in.
+
+// PAGE STRUCTURE:
+// - New password input
+// - Password confirmation input
+// - Submit button
+
+// API REQUESTS
+// @patch   /api/auth/resetPassword
+
 const Register = () => {
   const history = useHistory();
   const { slug } = useParams();
+  // Token is saved on the slug portion of the URL
+
   const [loggedIn, setLoggedIn] = useCredentials();
   const handleError = useError();
 
@@ -27,6 +42,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // Validation
+    // At least 8 char, uppercase, lowercase and number included
     if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.password)) {
       handleError('Invalid password');
     } else if (field.password !== field.confirmPassword) {
@@ -37,10 +53,12 @@ const Register = () => {
           password: field.password,
         });
 
-        // Save id on sessionStorage and exit
+        // Login user
         const { id } = res.data;
         setLoggedIn(id);
         M.toast({ html: 'Password Changed' });
+
+        // Redirect to /places
         setTimeout(() => {
           history.push('/places');
         }, 1500);

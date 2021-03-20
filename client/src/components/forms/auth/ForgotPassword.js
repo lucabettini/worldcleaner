@@ -3,7 +3,20 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
+
 import useError from '../../../hooks/useError';
+
+// Disclaimer: this form allows the user to receive an
+// email with a token to reset his forgotten password.
+// See the ChangePassword component for changin the
+// password while logged in.
+
+// PAGE STRUCTURE:
+// - Email input
+// - Submit button
+
+// API REQUESTS
+// @post    /api/auth/forgotPassword
 
 const ForgotPassword = () => {
   const history = useHistory();
@@ -18,6 +31,7 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validation
     if (email === '') {
       handleError('Email is required');
     } else {
@@ -27,6 +41,7 @@ const ForgotPassword = () => {
         });
         setSent(true);
         M.toast({ html: 'Check your email!' });
+        // Redirect to login after 4 seconds
         setTimeout(() => {
           history.push('/login');
         }, 4000);

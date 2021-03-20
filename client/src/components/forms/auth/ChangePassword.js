@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+
 import M from 'materialize-css/dist/js/materialize.min.js';
+
 import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
+// Disclaimer: this form allows the user to change the password
+// while logged in. For forgotten passwords, see the ForgotPassword
+// and ResetPassword component.
+
+// PAGE STRUCTURE:
+// - Old password input
+// - New password input
+// - Submit button
+
+// API REQUESTS
+// @patch   /api/auth/changePassword
+
 const ChangePassword = () => {
   const history = useHistory();
-  const handleError = useError();
 
+  const handleError = useError();
   const [loggedIn, setLoggedIn] = useCredentials();
 
   const [field, setField] = useState({
@@ -26,7 +40,8 @@ const ChangePassword = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // Validation
-    if (!/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}$/.test(field.newPassword)) {
+    // At least 8 char, uppercase, lowercase and number included
+    if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.newPassword)) {
       handleError('Invalid password');
     } else {
       try {
@@ -41,6 +56,7 @@ const ChangePassword = () => {
           }
         );
         M.toast({ html: 'Password changed' });
+        // Redirect user to profile after 2 seconds
         setTimeout(() => {
           history.push(`/users/${loggedIn}`);
         }, 2000);

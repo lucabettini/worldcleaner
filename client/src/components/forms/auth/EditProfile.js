@@ -4,22 +4,38 @@ import axios from 'axios';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-import DeleteProfileButton from '../../buttons/profile/DeleteProfileButton';
 import useCredentials from '../../../hooks/useCredentials';
 import useError from '../../../hooks/useError';
 
+import DeleteProfileButton from '../../buttons/profile/DeleteProfileButton';
+
+// PAGE STRUCTURE:
+// - Change username input
+// - Change/add description input
+// - Change/add location input
+// - Change password link (to ChangePassword form component)
+// - DeleteProfileButton
+
+// API REQUESTS
+// @patch   /api/users/:id
+
 const EditPlace = () => {
-  const [loggedIn, setLoggedIn] = useCredentials();
-  const handleError = useError();
-  const id = loggedIn;
   const history = useHistory();
+
+  const [loggedIn, setLoggedIn] = useCredentials();
+  const id = loggedIn;
+  const handleError = useError();
+
   const [user, setUser] = useState({});
   const [status, setStatus] = useState('loading');
 
+  // Instead of onChange, refs are used in combination with
+  // defaultValue to prepopulate the form with useEffect
   const nameRef = useRef(null);
   const descriptionRef = useRef(null);
   const locationRef = useRef(null);
 
+  // Populate form with values stored on db
   useEffect(async () => {
     try {
       const { data } = await axios.get(`/api/users/${id}`);
@@ -50,6 +66,7 @@ const EditPlace = () => {
       data.location = locationRef.current.value;
     }
 
+    // Send new values to server
     try {
       await axios.patch(`/api/users/${id}`, data, {
         withCredentials: true,
@@ -97,8 +114,8 @@ const EditPlace = () => {
           </div>
           <div className='input-field'>
             <textarea
-              name='description'
-              id='description'
+              name='location'
+              id='location'
               type='text'
               className='materialize-textarea'
               ref={locationRef}
