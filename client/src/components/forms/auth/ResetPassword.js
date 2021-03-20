@@ -43,7 +43,7 @@ const Register = () => {
     e.preventDefault();
     // Validation
     // At least 8 char, uppercase, lowercase and number included
-    if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.password)) {
+    if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})/.test(field.password)) {
       handleError('Invalid password');
     } else if (field.password !== field.confirmPassword) {
       handleError(`The two passwords don't match`);

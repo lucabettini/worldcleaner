@@ -9,9 +9,11 @@ import useError from '../../../hooks/useError';
 
 const DeleteProfileButton = () => {
   const history = useHistory();
-  const id = useParams().id;
+
   const [loggedIn, setLoggedIn] = useCredentials();
+  const id = loggedIn;
   const handleError = useError();
+
   const [click, setClick] = useState(false);
 
   const onDelete = async () => {

@@ -41,7 +41,7 @@ const ChangePassword = () => {
     e.preventDefault();
     // Validation
     // At least 8 char, uppercase, lowercase and number included
-    if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.newPassword)) {
+    if (!/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})/.test(field.newPassword)) {
       handleError('Invalid password');
     } else {
       try {

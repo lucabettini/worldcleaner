@@ -47,7 +47,7 @@ const Register = () => {
       handleError('Email is required');
     } else if (
       // At least 8 char, uppercase, lowercase and number included
-      !/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})$/.test(field.password)
+      !/^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.{8,})/.test(field.password)
     ) {
       handleError('Invalid password');
     } else if (field.password !== field.confirmPassword) {
