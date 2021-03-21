@@ -77,7 +77,7 @@ const PlacesScreen = () => {
                 <a
                   href='/places/list/all'
                   className='dark-text center-align'
-                  style={{ fontSize: '4em', marginBottom: '5px' }}
+                  style={{ fontSize: '3.5em', marginBottom: '5px' }}
                 >
                   {places.length}
                   <p className='place-number-description righteous'>REPORTED</p>
@@ -87,7 +87,7 @@ const PlacesScreen = () => {
                 <a
                   href='/places/list/cleaned'
                   className='primary-text center-align'
-                  style={{ fontSize: '4em', marginBottom: '5px' }}
+                  style={{ fontSize: '3.5em', marginBottom: '5px' }}
                 >
                   {numOfCleanedPlaces}
                   <p className='place-number-description primary-text righteous'>
