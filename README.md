@@ -1,7 +1,5 @@
 # [WORLD CLEANER](https://world-cleaner.herokuapp.com)
 
-![Heroku](http://heroku-badge.herokuapp.com/?app=world-cleaner&style=flat&svg=1)
-
 This website was created as a personal project while following the [Start2Impact](https://www.start2impact.it/) development course.
 The requirements were:
 
