@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import expressAsyncHandler from 'express-async-handler';
 import { validate, Joi } from 'express-validation';
 import bcrypt from 'bcryptjs';
-import nodemail from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
 import User from '../models/userModel.js';
 
@@ -77,24 +77,18 @@ const forgotPassword = [
     user.pswResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
     await user.save();
 
-    // Send email to user using transporter function
-    const transporter = nodemail.createTransport({
-      service: 'SendGrid',
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PSW,
-      },
-    });
-
+    //Send email
     const resetURL = `${process.env.BASE_URL}/resetPassword/${token}`;
+    sgMail.setApiKey(process.env.EMAIL_API_KEY);
+    const msg = {
+      to: user.email,
+      from: 'noreply@worldcleaner.lucabettini.com',
+      subject: 'Change World Cleaner password',
+      html: `<h3>To reset your password, <a href='${resetURL}'>click here.</a></h3><p>Otherwise ignore this message</p>`,
+    };
 
     try {
-      await transporter.sendMail({
-        to: user.email,
-        from: 'worldcleanerwebsite@gmail.com',
-        subject: 'Change World Cleaner password',
-        html: `<h3>To reset your password, <a href='${resetURL}'>click here.</a></h3><p>Otherwise ignore this message</p>`,
-      });
+      await sgMail.send(msg);
 
       res.json({
         msg: 'Token sent to email',
