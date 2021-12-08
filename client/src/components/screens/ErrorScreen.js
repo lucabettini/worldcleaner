@@ -44,7 +44,9 @@ const ErrorScreen = () => {
             <p style={errorText}>
               If the problem persists,{' '}
               <a
-                href='https://lucabettini.github.io/contacts.html'
+                href='https://lucabettini.com'
+                target='_blank'
+                rel='noopener noreferrer'
                 className='primary-text'
               >
                 please let me know.

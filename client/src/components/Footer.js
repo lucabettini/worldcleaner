@@ -9,12 +9,19 @@ const Footer = () => {
       <div className='center-align'>
         <p style={{ fontSize: '0.8em' }} className='dark-text'>
           Created by{' '}
-          <a href='https://lucabettini.github.io/' className='light-text'>
+          <a
+            href='https://lucabettini.com'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='light-text'
+          >
             Luca Bettini
           </a>{' '}
           | Code and credits{' '}
           <a
             href='https://github.com/lucabettini/worldcleaner'
+            target='_blank'
+            rel='noopener noreferrer'
             className='light-text'
           >
             here

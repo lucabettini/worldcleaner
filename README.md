@@ -1,6 +1,11 @@
-# [WORLD CLEANER](https://world-cleaner.herokuapp.com)
+![worldcleaner homepage image](https://lucabettini.com/images/worldcleaner_2.jpg)
 
-This website was created as a personal project while following the [Start2Impact](https://www.start2impact.it/) development course.
+# [WORLD CLEANER](https://worldcleaner.lucabettini.com)
+
+<i>Completed and deployed on Heroku on March 21, 2021 - new deploy on DigitalOcean droplet on October 4, 2021</i>
+
+This website was created as a personal project while following the [Start2Impact](https://www.start2impact.it/) Nodejs course.
+
 The requirements were:
 
 - A POST endpoint to report polluted places, providing infos about the location and a photo, uploaded using multer.
@@ -50,9 +55,13 @@ Since Heroku does not support static file storage, I decided to use AWS. All ima
 
 I used [express-async-handler](https://www.npmjs.com/package/express-async-handler 'express-async-handler') instead of multiple try/catch block and a custom [error middleware](https://github.com/lucabettini/worldcleaner/blob/main/middleware/errorMiddleware.js 'error middleware'). This allowed me to directly throw errors inside the controller whenever validation or authentication failed and to catch DB errors as well. Using a list of messages, the middleware chooses the correct status code and send the response with a message that is used by the client to show a toast or redirect the user to an error page.
 
-#### SECURITY
+#### AUTHENTICATION
 
 After long research, I decided to use JWT tokens stored inside a secure, same-site and http-only session cookie. This choice is pratical - the token is sent automatically with every request and on logout the cookie is simply removed, without having to maintain a black list of revoked token in the DB - and allows for a decent level of security as well, since the token is not directly saved on local storage and the cookie cannot be manipulated on the client-side. This logic is contained inside the custom [auth middleware](https://github.com/lucabettini/worldcleaner/blob/main/middleware/authMiddleware.js 'auth middleware').
+
+I used [sendGrid](https://sendgrid.com/) to automate mail delivery when the user forgets the password. The mail contains a token that can be used to reset it (see the [authController](https://github.com/lucabettini/worldcleaner/blob/main/controllers/authController.js)).
+
+#### SECURITY
 
 HTTP security headers are set using [helmet](https://www.npmjs.com/package/helmet 'helmet'). All requests are sanitized using [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize 'express-mongo-sanitize') and [xss-clean](https://www.npmjs.com/package/xss-clean 'xss-clean') and then validated in the controllers either manually or using the[ express-validation ](https://www.npmjs.com/package/express-validation ' express-validation ')package. Requests from the same IP are limited to 200/hr using [express-rate-limit](https://www.npmjs.com/package/express-rate-limit 'express-rate-limit.'). All passwords are hashed using [bcryptjs](https://www.npmjs.com/package/bcryptjs 'bcryptjs') before being saved in the database.
 
@@ -84,4 +93,4 @@ Map is built using [Leaflet](https://leafletjs.com/ 'Leaflet') and [OpenStreetMa
 
 ---
 
-Made by [Luca Bettini](https://lucabettini.github.io/).
+Made by [Luca Bettini](https://lucabettini.com).

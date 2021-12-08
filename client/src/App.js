@@ -43,9 +43,6 @@ const App = () => {
           <Route path='/' exact>
             <HomeScreen />
           </Route>
-          <Route path='/error' exact>
-            <ErrorScreen />
-          </Route>
 
           {/* AUTH ROUTES  */}
           <Route path='/login' exact>
@@ -112,6 +109,14 @@ const App = () => {
           <Route path='/dashboard' exact>
             <Header />
             <Dashboard />
+          </Route>
+
+          {/* ERROR & 404  */}
+          <Route path='/error' exact>
+            <ErrorScreen />
+          </Route>
+          <Route path='*'>
+            <ErrorScreen />
           </Route>
         </ErrorCatcher>
       </Router>
