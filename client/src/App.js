@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import 'materialize-css/dist/js/materialize.min.js';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -40,84 +40,86 @@ const App = () => {
     <>
       <Router>
         <ErrorCatcher>
-          <Route path='/' exact>
-            <HomeScreen />
-          </Route>
+          <Switch>
+            <Route path='/' exact>
+              <HomeScreen />
+            </Route>
 
-          {/* AUTH ROUTES  */}
-          <Route path='/login' exact>
-            <Header />
-            <Login />
-          </Route>
-          <Route path='/register' exact>
-            <Header />
-            <Register />
-          </Route>
-          <Route path='/forgotPassword' exact>
-            <Header />
-            <ForgotPassword />
-          </Route>
-          <Route path='/changePassword' exact>
-            <Header />
-            <ChangePassword />
-          </Route>
-          <Route path='/resetPassword/:slug' exact>
-            <Header />
-            <ResetPassword />
-          </Route>
+            {/* AUTH ROUTES  */}
+            <Route path='/login' exact>
+              <Header />
+              <Login />
+            </Route>
+            <Route path='/register' exact>
+              <Header />
+              <Register />
+            </Route>
+            <Route path='/forgotPassword' exact>
+              <Header />
+              <ForgotPassword />
+            </Route>
+            <Route path='/changePassword' exact>
+              <Header />
+              <ChangePassword />
+            </Route>
+            <Route path='/resetPassword/:slug' exact>
+              <Header />
+              <ResetPassword />
+            </Route>
 
-          {/* PLACES ROUTES */}
-          <Route path='/places' exact>
-            <Header />
-            <PlacesScreen />
-          </Route>
-          <Route path='/addPlace' exact>
-            <Header />
-            <AddPlace />
-          </Route>
-          <Route path='/places/list/:slug' exact>
-            <Header />
-            <ListScreen />
-          </Route>
-          <Route path='/places/edit/:id' exact>
-            <Header />
-            <EditPlace />
-          </Route>
-          <Route path='/places/:id' exact>
-            <Header />
-            <PlaceScreen />
-          </Route>
-          <Route path='/clean/edit/:id' exact>
-            <Header />
-            <EditCleaning />
-          </Route>
-          <Route path='/clean/:id' exact>
-            <Header />
-            <AddCleaning />
-          </Route>
+            {/* PLACES ROUTES */}
+            <Route path='/places' exact>
+              <Header />
+              <PlacesScreen />
+            </Route>
+            <Route path='/addPlace' exact>
+              <Header />
+              <AddPlace />
+            </Route>
+            <Route path='/places/list/:slug' exact>
+              <Header />
+              <ListScreen />
+            </Route>
+            <Route path='/places/edit/:id' exact>
+              <Header />
+              <EditPlace />
+            </Route>
+            <Route path='/places/:id' exact>
+              <Header />
+              <PlaceScreen />
+            </Route>
+            <Route path='/clean/edit/:id' exact>
+              <Header />
+              <EditCleaning />
+            </Route>
+            <Route path='/clean/:id' exact>
+              <Header />
+              <AddCleaning />
+            </Route>
 
-          {/* PROFILE ROUTES  */}
-          <Route path='/editProfile' exact>
-            <Header />
-            <EditProfile />
-          </Route>
-          <Route path='/users/:id' exact>
-            <Header />
-            <ProfileScreen />
-          </Route>
+            {/* PROFILE ROUTES  */}
+            <Route path='/editProfile' exact>
+              <Header />
+              <EditProfile />
+            </Route>
+            <Route path='/users/:id' exact>
+              <Header />
+              <ProfileScreen />
+            </Route>
 
-          <Route path='/dashboard' exact>
-            <Header />
-            <Dashboard />
-          </Route>
+            <Route path='/dashboard' exact>
+              <Header />
+              <Dashboard />
+            </Route>
 
-          {/* ERROR & 404  */}
-          <Route path='/error' exact>
-            <ErrorScreen />
-          </Route>
-          <Route path='*'>
-            <ErrorScreen />
-          </Route>
+            {/* ERROR & 404  */}
+            <Route path='/error' exact>
+              <ErrorScreen />
+            </Route>
+            <Route path='*'>
+              <ErrorScreen />
+            </Route>
+          </Switch>
         </ErrorCatcher>
       </Router>
       <Footer />
